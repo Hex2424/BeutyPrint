@@ -1,4 +1,4 @@
-from beutyprint.beutyprint import *
+from beutyprint import *
 
 # printer = BeutyPrint([BeutySpan(
 #     textColor=Fore.CYAN
@@ -9,22 +9,32 @@ def proc(msg, span):
     return (msg, span)
 
 printer = BeutyPrint([
-    BeutySpan(
-        textColor=Fore.CYAN,
-        defaultColor = Fore.CYAN
-    ),
-    BeutySpan(
-        textColor=Fore.BLUE,
-        l_sep='( ',
-        r_sep=' )',
-        textPadding=0,
-        textPaddingDirection=CENTER,
-        postProccessor=proc
-    ),
-    BeutySpan(
-        textColor=Fore.RED,
-    )
-], Fore.BLUE)
-
-
-printer.print(["hello", 4, "555"])
+     BeutySpan(
+    textColor = Fore.BLUE,
+    textPadding = 10,
+    textPaddingDirection = CENTER,
+    textStyle = Style.BRIGHT,
+    l_sep = '[[-> ',
+    r_sep = ' <-]]',
+  ),
+  BeutySpan(
+    textColor = Fore.GREEN,
+    textPadding = 10,
+    textPaddingDirection = CENTER,
+    textStyle = Style.BRIGHT,
+    l_sep = '[[-> ',
+    r_sep = ' <-]]',
+  ),
+  BeutySpan(
+    textColor = Fore.RED,
+    textPadding = 10,
+    textPaddingDirection = CENTER,
+    textStyle = Style.BRIGHT,
+    l_sep = '[[-> ',
+    r_sep = ' <-]]',
+  )
+])
+print('')
+printer.print(["Hello"])
+printer.print(["Test1", "Test2", "Test3"])
+print('')
