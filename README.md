@@ -17,10 +17,10 @@
     <img src="./images/logo.png" alt="Logo" width="400" height="400">
   </a>
 
-<h3 align="center">ProxyRipper</h3>
+<h3 align="center">BeutyPrinter</h3>
 
   <p align="center">
-    A Open-source tool for searching various websites for proxies and doing realtime validation - so THEY WILL REALLY WORK
+    A Python library to give beuty to your python scripts printing structure
     <br />
     <!-- <br>
     <a href="https://github.com/Hex2424/ProxyRipper">View Demo</a>
@@ -66,7 +66,7 @@
 
 ![Product Name Screen Shot](images/home.png)
 
-Proxies, is a safe and pretty fast way to hide your IP online, but finding one online sounds easier than it really is, online websites are overfilled with proxies IPs but actually working ones at that moment is existing only a few, so I decided create a tool for ripping all these websites and finding **REALLY VALID PROXIES**
+Sometimes we all in hurry and just need simple printing tool just to preview our scripts scraping or processing output in more neat way than just plain text, each time need waste time writing something simple to print neatly, so I wrote this lib almost in all my projects since its meets my needs, I hope it will meet other people needs so I am sharing it with everyone
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -89,9 +89,8 @@ Project is uploaded to PYPI, so you can install it pretty easily using pip tool.
 
 1. Install package using pip command
    ```sh
-   pip install proxy-ripper
+   pip install beuty-print
    ```
-2. Congrats, thats all, package is installed
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -99,50 +98,117 @@ Project is uploaded to PYPI, so you can install it pretty easily using pip tool.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To use this tool with default settings simply type this in your terminal:
-```sh
-proxy-ripper
+To use this library just import classes and create printer object
+```python
+from beutyprint import *
+
+printer = BeutyPrint()
 ```
-<br>**Additional arguments:**
-<br>Displaying all possible parameters:
-```sh
-proxy-ripper --help
+<br>**Setting format:**
+<br>Each format is a list of spans, can be defined as here **(default instances)**:
+
+```python
+# Each span object represents style applied for each printer word
+# Sequentialy, if there will be more words, it will start repeat
+
+format = [
+  BeutySpan(),
+  BeutySpan(),
+  BeutySpan()
+]
+
+# Setting default format pattern for printer
+printer.setDefaultFormat(format)
 ```
-Changing proxy check timeout:
-```sh
-proxy-ripper --timeout <TIMEOUT>
+Then we need to call print function of printer object:
+```python
+# Takes one string
+printer.print("Hello")
+
+# Or string list
+printer.print(["Test1", "Test2", "Test3"])
 ```
-Changing proxy retries until proxy considered died:
+**Output:**
 ```sh
-proxy-ripper --attempts <ATTEMPTS>
-```
-Changing tool threads count used for proxy checking:
-```sh
-proxy-ripper --threads <THREAD_COUNT>
-```
-By default tool caches last session working proxies, and firstly checking them, then searching internet for new ones, you can disable this by including this parameter:
-```sh
-proxy-ripper --disable-cache
-```
-Tool uses python requests module for checking if proxy do a job properly, by default it tries reach https://www.google.com, you can change default checking url by this option.
-```sh
-proxy-ripper --check-url https://www.example.com
-```
-Getting version of this tool
-```sh
-proxy-ripper --version
+[ Hello ]
+[ Test1 ][ Test2 ][ Test3 ]
 ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>**Configuring Individual span:**
+<br>
+```python
+format = [
+  BeutySpan(
+    # Text color used in span text
+    textColor = Fore.CYAN,
+    # Minimum length of span text field
+    textPadding = 10,
+    # In which direction unused span space will be inserted
+    textPaddingDirection = RIGHT,
+    # Span background color
+    textBackgroundColor = Back.GREEN,
+    # Span styles like text style
+    textStyle = Style.DIM,
+    # Left span seperator string
+    l_sep = '[ ',
+    # Right span seperator string
+    r_sep = ' ]',
+    # Default color of span string
+    defaultColor = Fore.RED,
+    # Advanced function for handling span differently 
+    # dependent on message
+    postProcessor = functionHandler
+  )
+]
+```
+Output looks like this, since we defined only 1 span, it keeps repeating for all messages
+
+![Product Name Screen Shot](images/span_example.png)
+
+<br>**Second example:**
+<br>
+```python
+format = [
+  # First pattern element
+  BeutySpan(
+    textColor = Fore.BLUE,
+    textPadding = 10,
+    textPaddingDirection = CENTER,
+    textStyle = Style.BRIGHT,
+    l_sep = '[[-> ',
+    r_sep = ' <-]]',
+  ),
+  # Second pattern element
+  BeutySpan(
+    textColor = Fore.GREEN,
+    textPadding = 10,
+    textPaddingDirection = CENTER,
+    textStyle = Style.BRIGHT,
+    l_sep = '[[-> ',
+    r_sep = ' <-]]',
+  ),
+  # Third pattern element
+  BeutySpan(
+    textColor = Fore.RED,
+    textPadding = 10,
+    textPaddingDirection = CENTER,
+    textStyle = Style.BRIGHT,
+    l_sep = '[[-> ',
+    r_sep = ' <-]]',
+  )
+]
+```
+**Output:**
+
+![Product Name Screen Shot](images/span_example2.png)
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Adding more API endpoints for ripping
-- [ ] Adding feature to generate PROXY addresses itself
-- [ ] Auto proxy revalidation
+- [ ] Generalizing parent span
+- [ ] Improve this readme
 
 See the [open issues](https://github.com/Hex2424/ProxyRipper/issues) for a full list of proposed features (and known issues).
 
@@ -186,30 +252,3 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* [https://stackoverflow.com/](https://stackoverflow.com/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Hex2424/ProxyRipper.svg?style=for-the-badge
-[contributors-url]: https://github.com/Hex2424/ProxyRipper/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Hex2424/ProxyRipper.svg?style=for-the-badge
-[forks-url]: https://github.com/Hex2424/ProxyRipper/network/members
-[stars-shield]: https://img.shields.io/github/stars/Hex2424/ProxyRipper.svg?style=for-the-badge
-[stars-url]: https://github.com/Hex2424/ProxyRipper/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Hex2424/ProxyRipper.svg?style=for-the-badge
-[issues-url]: https://github.com/Hex2424/ProxyRipper/issues
-[license-shield]: https://img.shields.io/github/license/Hex2424/ProxyRipper.svg?style=for-the-badge
-[license-url]: https://github.com/Hex2424/ProxyRipper/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/markas-vielavičius-503827254
-[product-screenshot]: images/screenshot.png -->
