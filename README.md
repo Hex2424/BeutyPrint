@@ -14,7 +14,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Hex2424/ProxyRipper">
-    <img src="./images/logo.png" alt="Logo" width="400" height="400">
+    <img src="./images/logo.png" alt="Logo">
   </a>
 
 <h3 align="center">BeutyPrinter</h3>
