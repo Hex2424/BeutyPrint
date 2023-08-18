@@ -4,37 +4,39 @@ from beutyprint import *
 #     textColor=Fore.CYAN
 # )])
 def proc(msg, span):
-    if msg == 3:
-        span.textColor = Fore.RED
+    if msg == "ON":
+        span.textColor = Fore.GREEN
+    elif msg == "OFF":
+        span.textColor = Fore.RED  
     return (msg, span)
 
 printer = BeutyPrint([
-     BeutySpan(
-    textColor = Fore.BLUE,
-    textPadding = 10,
-    textPaddingDirection = CENTER,
-    textStyle = Style.BRIGHT,
+    BeutySpan(
+    color = Fore.BLUE,
+    padding = 10,
+    padStyle = CENTER,
+    sepColor = Fore.GREEN,
     l_sep = '[[-> ',
     r_sep = ' <-]]',
   ),
-  BeutySpan(
-    textColor = Fore.GREEN,
-    textPadding = 10,
-    textPaddingDirection = CENTER,
-    textStyle = Style.BRIGHT,
+   BeutySpan(
+    # color = Fore.YELLOW,
+    padding = 10,
+    padStyle = CENTER,
+    # style= Style.BRIGHT,
     l_sep = '[[-> ',
     r_sep = ' <-]]',
   ),
-  BeutySpan(
-    textColor = Fore.RED,
-    textPadding = 10,
-    textPaddingDirection = CENTER,
-    textStyle = Style.BRIGHT,
+   BeutySpan(
+    color = Fore.CYAN,
+    padStyle = CENTER,
+    style= Style.BRIGHT,
     l_sep = '[[-> ',
-    r_sep = ' <-]]',
+    r_sep = ' <-]]\n',
+    postProccessor=proc
   )
 ])
 print('')
 printer.print(["Hello"])
-printer.print(["Test1", "Test2", "Test3"])
+printer.print(["Test1", "Test2", "ON", "Test1", "Test2", "ON", "Test1", "Test2", "OFF", "Test1", "Test2", "LOL"])
 print('')
