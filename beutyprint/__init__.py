@@ -23,10 +23,10 @@ class BeutySpan():
 
 class BeutyPrint():
 
-    def __init__(self, format: list[BeutySpan] = [BeutySpan()], defaultSpan:BeutySpan = BeutySpan()):
+    def __init__(self, format: list[BeutySpan] = [BeutySpan()]):
 
         self.formatRules = format
-        self.defaultSpan = defaultSpan
+        # self.defaultSpan = defaultSpan
 
     def getFormatted(self, format: list[BeutySpan], messagesList : list):
         formattedString = ''
