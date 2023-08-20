@@ -19,10 +19,10 @@ setup(
     author_email="<markas.vielavicius@gmail.com>",
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     packages=find_packages(),
     include_package_data=True,   
-    install_requires=[],
+    install_requires=["colorama"],
     keywords=['python', 'printer', 'print', 'color', 'simple', 'format'],
     classifiers=[
         "Development Status :: 1 - Planning",
