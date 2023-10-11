@@ -45,9 +45,9 @@ class BeutyPrint():
 
             formattedString += f"{span.seperatorColor}{span.l_sep}{span.textColor}{span.textBackgroundColor}{span.textStyle}"
             
-            if span.textPaddingDirection == RIGHT:
+            if span.textPaddingDirection == LEFT or span.textPaddingDirection == LEFT_AUTO:
                 formattedString += f"{str(msg) :<{span.textPadding}}"
-            elif span.textPaddingDirection == LEFT:
+            elif span.textPaddingDirection == RIGHT or span.textPaddingDirection == RIGHT_AUTO:
                 formattedString += f"{str(msg) :>{span.textPadding}}"
             else:
                 formattedString += f"{str(msg).center(span.textPadding)}"
@@ -67,4 +67,25 @@ class BeutyPrint():
         else:
             self.printUsingFormat(self.formatRules, messagesList, end)
 
-    
+    def printTable(self, messagesTable : list[list], end='\n', allignment = LEFT_AUTO):
+
+        for row in messagesTable:
+            countCurrentPos = 0
+            for entity in row:
+                if len(self.formatRules) > countCurrentPos:
+
+                    if allignment != None:
+                        self.formatRules[countCurrentPos].textPaddingDirection = allignment
+
+                    if allignment >= LEFT_AUTO:
+                        if self.formatRules[countCurrentPos].textPadding < len(str(entity)):
+                            self.formatRules[countCurrentPos].textPadding = len(str(entity))
+
+                countCurrentPos += 1
+
+        for messageList in messagesTable:
+            if type(messageList) == str:
+                self.printUsingFormat(self.formatRules, [messageList], end)
+            else:
+                self.printUsingFormat(self.formatRules, messageList, end)
+
