@@ -25,7 +25,10 @@ class BeutyPrint():
 
     def __init__(self, format: list[BeutySpan] = [BeutySpan()]):
 
-        self.formatRules = format
+        if format == []:
+            self.formatRules = [BeutySpan()]
+        else:
+            self.formatRules = format
         # self.defaultSpan = defaultSpan
 
     def getFormatted(self, format: list[BeutySpan], messagesList : list):
@@ -57,11 +60,14 @@ class BeutyPrint():
 
         return formattedString
 
-    def printUsingFormat(self, format: list[BeutySpan], messagesList : list, end = '\n'):
+    def printUsingFormat(self, format: list[BeutySpan] = [BeutySpan()], messagesList : list = [], end = '\n'):
+        if format == []:
+            format = [BeutySpan()]
+
         print(self.getFormatted(format, messagesList), end=end)
     
 
-    def print(self, messagesList : list, end='\n'):
+    def print(self, messagesList : list = [], end='\n'):
         if type(messagesList) == str:
             self.printUsingFormat(self.formatRules, [messagesList], end)
         else:
@@ -69,23 +75,24 @@ class BeutyPrint():
 
     def printTable(self, messagesTable : list[list], end='\n', allignment = LEFT_AUTO):
 
+        formatCopy = deepcopy(self.formatRules)
         for row in messagesTable:
             countCurrentPos = 0
             for entity in row:
-                if len(self.formatRules) > countCurrentPos:
+                if len(formatCopy) > countCurrentPos:
 
                     if allignment != None:
-                        self.formatRules[countCurrentPos].textPaddingDirection = allignment
+                        formatCopy[countCurrentPos].textPaddingDirection = allignment
 
                     if allignment >= LEFT_AUTO:
-                        if self.formatRules[countCurrentPos].textPadding < len(str(entity)):
-                            self.formatRules[countCurrentPos].textPadding = len(str(entity))
+                        if formatCopy[countCurrentPos].textPadding < len(str(entity)):
+                            formatCopy[countCurrentPos].textPadding = len(str(entity))
 
                 countCurrentPos += 1
 
         for messageList in messagesTable:
             if type(messageList) == str:
-                self.printUsingFormat(self.formatRules, [messageList], end)
+                self.printUsingFormat(formatCopy, [messageList], end)
             else:
-                self.printUsingFormat(self.formatRules, messageList, end)
+                self.printUsingFormat(formatCopy, messageList, end)
 

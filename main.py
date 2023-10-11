@@ -37,10 +37,16 @@ def proc(msg, span):
 #     postProccessor=proc
 #   )
 # ])
-printer = BeutyPrint([])
+printer = BeutyPrint([BeutySpan(color=Fore.RED),
+    BeutySpan(color=Fore.YELLOW),
+    BeutySpan(color=Fore.GREEN),
+    BeutySpan(color=Fore.BLUE)])
 # print('')
 # printer.print(["Hello"])
 # printer.print(["Test1", "Test2", "ON", "Test1", "Test2", "ON", "Test1", "Test2", "OFF", "Test1", "Test2", "LOL"])
 
 printer.printTable([["LOL","NOOB"], ["HAHAAHHAssss", "NOOB"]])
+
+
+printer.print(["tf"])
 print('')
